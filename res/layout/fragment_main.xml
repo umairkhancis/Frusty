@@ -1,49 +1,80 @@
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/grid_view"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:numColumns="auto_fit"
-    android:columnWidth="90dp"
-    android:horizontalSpacing="10dp"
-    android:verticalSpacing="10dp"
-    android:gravity="center"
-    android:stretchMode="columnWidth"
-    android:rowCount="2"
-    android:columnCount="2"
-    tools:context="com.cistem.frusty.activity.MainActivity$PlaceholderFragment" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
 
-    <ImageView
-        android:id="@+id/box1"
+    <include
+        android:id="@+id/grid_view_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:contentDescription="@string/content_desc"
-        android:background="@drawable/square" />
+        layout="@layout/round1_grid_layout" />
 
-    <ImageView
-        android:id="@+id/box2"
+    <LinearLayout
+        android:id="@+id/score_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|top"
-        android:layout_margin="10dp"
-        android:background="@drawable/square"
-        android:contentDescription="@string/content_desc" />
+		android:layout_below="@id/grid_view_container"
+		android:orientation="horizontal" >
 
-    <ImageView
-        android:id="@+id/box3"
+        <TextView
+            android:id="@+id/score_heading_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/heading_score"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/score_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="18sp" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/click_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:contentDescription="@string/content_desc"
-        android:background="@drawable/square" />
+		android:layout_below="@id/score_container"
+		android:orientation="horizontal" >
 
-    <ImageView
-        android:id="@+id/box4"
+        <TextView
+            android:id="@+id/click_heading_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/heading_click"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/click_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="18sp" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/miss_click_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:contentDescription="@string/content_desc"
-        android:background="@drawable/square" />
+		android:layout_below="@id/click_container"
+		android:orientation="horizontal" >
 
-</GridLayout>
+        <TextView
+            android:id="@+id/miss_click_heading_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/heading_miss_click"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/miss_click_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="18sp" />
+    </LinearLayout>    
+
+</RelativeLayout>

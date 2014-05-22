@@ -5,5 +5,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="content_desc">Content Description</string>
+    
+    <string name="heading_score">Score: </string>
+    <string name="heading_click">Clicks: </string>
+    <string name="heading_miss_click">Miss Clicks: </string>
 
 </resources>

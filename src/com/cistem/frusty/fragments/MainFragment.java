@@ -2,7 +2,9 @@ package com.cistem.frusty.fragments;
 
 import java.util.Random;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cistem.frusty.R;
 
@@ -26,16 +29,26 @@ public class MainFragment extends Fragment {
 	private ImageView mBox3;
 	private ImageView mBox4;
 	
+	private TextView mScoreTv;
+	private TextView mClickTv;
+	private TextView mMissClickTv;
+	
+	int mScore;
+	int mClick;
+	int mMissClick;
+	
 	
 	private int mDelay = 2000;
 	
 	Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
+			
 			mBox1.setImageResource(0);
 			mBox2.setImageResource(0);
 			mBox3.setImageResource(0);
 			mBox4.setImageResource(0);
+			
 			switch (msg.what) {
 				case BOX1: {
 					mBox1.setImageResource(R.drawable.zardari);
@@ -68,11 +81,17 @@ public class MainFragment extends Fragment {
 		mBox3 = (ImageView) mRootView.findViewById(R.id.box3);
 		mBox4 = (ImageView) mRootView.findViewById(R.id.box4);
 		
+		mScoreTv = (TextView) mRootView.findViewById(R.id.score_tv);
+		mClickTv = (TextView) mRootView.findViewById(R.id.click_tv);
+		mMissClickTv = (TextView) mRootView.findViewById(R.id.miss_click_tv);
+		
 		mBox1.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				updateScore(mBox1);
 				mBox1.setImageResource(R.drawable.egg);
+				
 			}
 		});
 		
@@ -80,7 +99,9 @@ public class MainFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
+				updateScore(mBox2);
 				mBox2.setImageResource(R.drawable.egg);
+				
 			}
 		});
 		
@@ -88,7 +109,9 @@ public class MainFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
+				updateScore(mBox3);
 				mBox3.setImageResource(R.drawable.egg);
+				
 			}
 		});
 		
@@ -96,8 +119,12 @@ public class MainFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
+				updateScore(mBox4);
 				mBox4.setImageResource(R.drawable.egg);
+				
 			}
+
+
 		});
 		
 		return mRootView;
@@ -159,6 +186,44 @@ public class MainFragment extends Fragment {
 		return R;
 	}
 
+	private void updateScore(ImageView box) {
+		
+		Drawable image = box.getDrawable();
+		
+		mClick++;
+		
+		if(image != null)
+			mScore++;
+		
+		if(image == null)
+			mMissClick++;
+		
+		mScoreTv.setText(String.valueOf(mScore));
+		mClickTv.setText(String.valueOf(mClick));
+		mMissClickTv.setText(String.valueOf(mMissClick));
+		
+		float points = mScore/mClick * 100f;
+		
+		if(mClick == 10) {
+			if(points >= 80.0) {
+		    	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		        builder.setMessage("You Won :-)").
+		        setTitle("Level Cleared").
+		        setNeutralButton("OK", null).show();
+			}
+			else {
+			    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		        builder.setMessage("You Loose :-(").
+		        setTitle("Level Failed").
+		        setNeutralButton("Retry", null).show();
+			}
+
+		}
+		
+		
+	}
+	
+	
 	private void sleep() {
 		try {
 			Thread.sleep(mDelay);
