@@ -1,0 +1,49 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/grid_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:numColumns="auto_fit"
+    android:columnWidth="90dp"
+    android:horizontalSpacing="10dp"
+    android:verticalSpacing="10dp"
+    android:gravity="center"
+    android:stretchMode="columnWidth"
+    android:rowCount="2"
+    android:columnCount="2"
+    tools:context="com.cistem.frusty.activity.MainActivity$PlaceholderFragment" >
+
+    <ImageView
+        android:id="@+id/box1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:contentDescription="@string/content_desc"
+        android:background="@drawable/square" />
+
+    <ImageView
+        android:id="@+id/box2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:layout_margin="10dp"
+        android:background="@drawable/square"
+        android:contentDescription="@string/content_desc" />
+
+    <ImageView
+        android:id="@+id/box3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:contentDescription="@string/content_desc"
+        android:background="@drawable/square" />
+
+    <ImageView
+        android:id="@+id/box4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:contentDescription="@string/content_desc"
+        android:background="@drawable/square" />
+
+</GridLayout>
