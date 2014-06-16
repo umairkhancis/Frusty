@@ -46,5 +46,21 @@
         android:layout_margin="10dp"
         android:background="@drawable/square"
         android:contentDescription="@string/content_desc" />
+    
+	<ImageView
+        android:id="@+id/box5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/square"
+        android:contentDescription="@string/content_desc" />
+
+    <ImageView
+        android:id="@+id/box6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/square"
+        android:contentDescription="@string/content_desc" />
 
 </GridLayout>

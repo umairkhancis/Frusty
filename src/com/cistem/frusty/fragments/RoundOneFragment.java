@@ -12,30 +12,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.cistem.frusty.R;
 
-public class MainFragment extends Fragment {
+public class RoundOneFragment extends Fragment {
 	
 	protected static final int BOX1 = 1;
 	protected static final int BOX2 = 2;
 	protected static final int BOX3 = 3;
 	protected static final int BOX4 = 4;
+	protected static final int BOX5 = 5;
+	protected static final int BOX6 = 6;
 	
 	private View mRootView;
 	private ImageView mBox1;
 	private ImageView mBox2;
 	private ImageView mBox3;
 	private ImageView mBox4;
-	
-	private TextView mScoreTv;
-	private TextView mClickTv;
-	private TextView mMissClickTv;
+	private ImageView mBox5;
+	private ImageView mBox6;
 	
 	int mScore;
 	int mClick;
 	int mMissClick;
+	int mCount = 0;
 	
 	
 	private int mDelay = 2000;
@@ -48,6 +48,8 @@ public class MainFragment extends Fragment {
 			mBox2.setImageResource(0);
 			mBox3.setImageResource(0);
 			mBox4.setImageResource(0);
+			mBox5.setImageResource(0);
+			mBox6.setImageResource(0);
 			
 			switch (msg.what) {
 				case BOX1: {
@@ -66,7 +68,17 @@ public class MainFragment extends Fragment {
 					mBox4.setImageResource(R.drawable.zardari);
 					break;
 				}
+				case BOX5: {
+					mBox5.setImageResource(R.drawable.zardari);
+					break;
+				}
+				case BOX6: {
+					mBox6.setImageResource(R.drawable.zardari);
+					break;
+				}
 			}
+			
+			mCount++;
 		}
 	};
 
@@ -74,17 +86,16 @@ public class MainFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		mRootView = inflater.inflate(R.layout.fragment_main, container, false);
+		mRootView = inflater.inflate(R.layout.round_one_frag, container, false);
 		
 		mBox1 = (ImageView) mRootView.findViewById(R.id.box1);
 		mBox2 = (ImageView) mRootView.findViewById(R.id.box2);
 		mBox3 = (ImageView) mRootView.findViewById(R.id.box3);
 		mBox4 = (ImageView) mRootView.findViewById(R.id.box4);
+		mBox5 = (ImageView) mRootView.findViewById(R.id.box5);
+		mBox6 = (ImageView) mRootView.findViewById(R.id.box6);
 		
-		mScoreTv = (TextView) mRootView.findViewById(R.id.score_tv);
-		mClickTv = (TextView) mRootView.findViewById(R.id.click_tv);
-		mMissClickTv = (TextView) mRootView.findViewById(R.id.miss_click_tv);
-		
+
 		mBox1.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -123,8 +134,25 @@ public class MainFragment extends Fragment {
 				mBox4.setImageResource(R.drawable.egg);
 				
 			}
-
-
+		});
+		
+		mBox5.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				updateScore(mBox5);
+				mBox5.setImageResource(R.drawable.egg);
+				
+			}
+		});
+		mBox6.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				updateScore(mBox6);
+				mBox6.setImageResource(R.drawable.egg);
+				
+			}
 		});
 		
 		return mRootView;
@@ -136,6 +164,9 @@ public class MainFragment extends Fragment {
 	}
 	
 	private class loadEnemyImage implements Runnable {
+		
+		private static final int NO_OF_BOXES = 6;
+		
 		private final Handler handler;
 
 		loadEnemyImage(Handler handler) {
@@ -145,7 +176,7 @@ public class MainFragment extends Fragment {
 		public void run() {
 
 			while(true) {
-				int rand = getRandomNumber(1, 5);
+				int rand = getRandomNumber(1, NO_OF_BOXES + 1);
 				int id = getBoxIdFromRandomNumber(rand);
 				sleep();
 				Message msg = handler.obtainMessage(rand);
@@ -175,8 +206,14 @@ public class MainFragment extends Fragment {
 			
 		case 4:
 			return R.id.box4;
+			
+		case 5:
+			return R.id.box5;
+			
+		case 6:
+			return R.id.box6;
 		}
-		return R.id.box4;
+		return R.id.box6;
 	}
 
 	private int getRandomNumber(int low, int high) {
@@ -198,31 +235,29 @@ public class MainFragment extends Fragment {
 		if(image == null)
 			mMissClick++;
 		
-		mScoreTv.setText(String.valueOf(mScore));
-		mClickTv.setText(String.valueOf(mClick));
-		mMissClickTv.setText(String.valueOf(mMissClick));
+//		mScoreTv.setText(String.valueOf(mScore));
+//		mClickTv.setText(String.valueOf(mClick));
+//		mMissClickTv.setText(String.valueOf(mMissClick));
 		
-		float points = mScore/mClick * 100f;
+		float points = (mScore-mMissClick)/mCount * 100f;
 		
-		if(mClick == 10) {
+		if(mCount == 10) {
 			if(points >= 80.0) {
 		    	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		        builder.setMessage("You Won :-)").
-		        setTitle("Level Cleared").
-		        setNeutralButton("OK", null).show();
+				builder.setMessage("Score is: " + mScore + "\nTotal Clicks: " + mClick
+								+ "\nMiss Clicks: " + mMissClick)
+				.setTitle("Level Cleared")
+		        .setNeutralButton("OK", null).show();
 			}
 			else {
 			    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		        builder.setMessage("You Loose :-(").
-		        setTitle("Level Failed").
-		        setNeutralButton("Retry", null).show();
+				builder.setMessage("Score is: " + mScore + "\nTotal Clicks: " + mClick
+						+ "\nMiss Clicks: " + mMissClick)
+		        .setTitle("Level Failed")
+		        .setNeutralButton("Retry", null).show();
 			}
-
 		}
-		
-		
 	}
-	
 	
 	private void sleep() {
 		try {

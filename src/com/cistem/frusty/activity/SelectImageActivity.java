@@ -4,18 +4,18 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.cistem.frusty.R;
-import com.cistem.frusty.fragments.MainFragment;
+import com.cistem.frusty.fragments.SelectImageFragment;
 
-public class MainActivity extends Activity {
+public class SelectImageActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.select_image);
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
-					.add(R.id.container, new MainFragment()).commit();
+					.add(R.id.container, new SelectImageFragment()).commit();
 		}
 	}
 }

@@ -9,5 +9,9 @@
     <string name="heading_score">Score: </string>
     <string name="heading_click">Clicks: </string>
     <string name="heading_miss_click">Miss Clicks: </string>
+    
+    <string name="heading_select_image_menu">Select Image Menu</string>
+    <string name="select_friend_image">Select Friend Menu</string>
+    <string name="select_enemy_image">Select Enemy Image </string>
 
 </resources>
